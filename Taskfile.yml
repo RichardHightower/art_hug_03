@@ -42,6 +42,11 @@ tasks:
     desc: "Run advanced tokenization examples"
     cmds:
       - poetry run python src/advanced_tokenization.py
+  
+  run-comparison:
+    desc: "Run tokenizer comparison and performance benchmarks"
+    cmds:
+      - poetry run python src/tokenizer_comparison.py
 
   notebook:
     desc: "Launch Jupyter notebook server"

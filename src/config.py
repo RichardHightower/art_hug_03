@@ -1,40 +1,25 @@
-"""Configuration module for examples."""
-
 import os
-from pathlib import Path
 
+import torch
 from dotenv import load_dotenv
 
-# Load environment variables
+"""Configuration module for examples."""
+
+# Load environment variables from .env file
 load_dotenv()
 
-# Project paths
-PROJECT_ROOT = Path(__file__).parent.parent
-DATA_DIR = PROJECT_ROOT / "data"
-MODELS_DIR = PROJECT_ROOT / "models"
-
-# Create directories if they don't exist
-DATA_DIR.mkdir(exist_ok=True)
-MODELS_DIR.mkdir(exist_ok=True)
-
-# Model configurations
-DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", "bert-base-uncased")
-BATCH_SIZE = int(os.getenv("BATCH_SIZE", "8"))
-MAX_LENGTH = int(os.getenv("MAX_LENGTH", "512"))
-
-# API keys (if needed)
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
-# Try multiple possible token names
+# HuggingFace Hub token - check multiple possible env var names
 HF_TOKEN = (
     os.getenv("HUGGINGFACE_TOKEN")
     or os.getenv("HUGGING_FACE_HUB_TOKEN")
     or os.getenv("HF_TOKEN")
 )
 
-import torch
-
-# Device configuration
+# Other configuration variables
+DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", "bert-base-uncased")
+MAX_LENGTH = int(os.getenv("MAX_LENGTH", "512"))
+BATCH_SIZE = int(os.getenv("BATCH_SIZE", "8"))
+CACHE_DIR = os.getenv("CACHE_DIR", "./models")
 
 
 def get_device():

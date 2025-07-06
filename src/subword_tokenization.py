@@ -10,7 +10,10 @@ def run_subword_tokenization_examples():
     print("Demonstrating different subword tokenization methods:")
 
     # Example text
-    text = "Tokenization is fundamental to NLP. Let's explore BPE, WordPiece, and SentencePiece!"
+    text = (
+        "Tokenization is fundamental to NLP. Let's explore BPE, WordPiece, and "
+        "SentencePiece!"
+    )
 
     # 1. BPE (Byte Pair Encoding) - GPT-2
     print("\n1. BPE Tokenization (GPT-2):")

@@ -17,8 +17,8 @@ def run_advanced_tokenization_examples():
     texts = [
         "Short text.",
         "This is a medium length sentence that demonstrates padding.",
-        "This is a much longer sentence that will show how padding works with
-        multiple sentences of different lengths in a batch.",
+        "This is a much longer sentence that will show how padding works with "
+        "multiple sentences of different lengths in a batch.",
     ]
 
     # Padding to max length in batch
@@ -43,11 +43,12 @@ def run_advanced_tokenization_examples():
         long_text, truncation=True, max_length=20, return_tensors="pt"
     )
     print(
-        f"   With truncation (max_length=20): {tokens_with_trunc['input_ids'].shape[1]} "
-        "tokens"
+        f"   With truncation (max_length=20): "
+        f"{tokens_with_trunc['input_ids'].shape[1]} tokens"
     )
     print(
-        f"   Truncated tokens: {tokenizer.convert_ids_to_tokens(tokens_with_trunc['input_ids'][0])}"
+        f"   Truncated tokens: "
+        f"{tokenizer.convert_ids_to_tokens(tokens_with_trunc['input_ids'][0].tolist())}"
     )
 
     # 3. Special tokens
@@ -60,10 +61,12 @@ def run_advanced_tokenization_examples():
 
     print(f"   Original text: {text}")
     print(
-        f"   With special tokens: {tokenizer.convert_ids_to_tokens(tokens_with_special['input_ids'])}"
+        f"   With special tokens: "
+        f"{tokenizer.convert_ids_to_tokens(tokens_with_special['input_ids'])}"
     )
     print(
-        f"   Without special tokens: {tokenizer.convert_ids_to_tokens(tokens_without_special['input_ids'])}"
+        f"   Without special tokens: "
+        f"{tokenizer.convert_ids_to_tokens(tokens_without_special['input_ids'])}"
     )
     print("   Special tokens mapping:")
     print(f"     - [CLS] token: {tokenizer.cls_token} (ID: {tokenizer.cls_token_id})")
@@ -120,7 +123,8 @@ def run_advanced_tokenization_examples():
     # Show which characters each token corresponds to
     for token, (start, end) in zip(
         tokenizer.convert_ids_to_tokens(encoding["input_ids"]),
-        encoding["offset_mapping"], strict=False,
+        encoding["offset_mapping"],
+        strict=False,
     ):
         print(f"     Token '{token}' -> Text '{text[start:end]}' (chars {start}-{end})")
 

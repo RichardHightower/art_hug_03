@@ -33,8 +33,8 @@ def list_text_classification_models():
         downloads = model.downloads or "N/A"
         likes = model.likes or 0
         print(
-            print(f"{i:2d}. {model.modelId[:50]:<50} | Downloads: {downloads:>10} | "
-              f"Likes: {likes:>5}")
+            f"{i:2d}. {model.modelId[:50]:<50} | Downloads: {downloads:>10} | "
+            f"Likes: {likes:>5}"
         )
     print()
 
@@ -128,7 +128,11 @@ def check_auth_status():
             user = api.whoami(token=token)
             print(f"✅ Authenticated as: {user['name']}")
             print(
-                f"   f"   Organizations: {', '.join(org['name'] for org in user.get('orgs', []))}""
+                print(
+                    f"   Organizations: {', '.join(
+                    org['name'] for org in user.get('orgs', [])
+                )}"
+                )
             )
         except Exception as e:
             print("❌ Invalid token or not authenticated")

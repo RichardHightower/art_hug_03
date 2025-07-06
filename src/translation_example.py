@@ -109,7 +109,7 @@ def batch_translation_performance():
     # Batch translation
     print("\n2. Batch translation (all sentences at once):")
     start_time = time.time()
-    batch_results = translator(sentences, batch_size=4)
+    _ = translator(sentences, batch_size=4)
     batch_time = time.time() - start_time
     print(f"   Time: {batch_time:.2f} seconds")
 
@@ -131,7 +131,10 @@ def translation_with_options():
         "translation_en_to_fr", model="Helsinki-NLP/opus-mt-en-fr", device=device
     )
 
-    text = "The artificial intelligence model performed exceptionally well on the challenging dataset."
+    text = (
+        "The artificial intelligence model performed exceptionally well on the "
+        "challenging dataset."
+    )
 
     # Different max_length settings
     print("Original:", text)
@@ -169,7 +172,10 @@ def reverse_translation_example():
     )
 
     # Original text
-    original = "The secret to happiness is not in doing what you like, but in liking what you do."
+    original = (
+        "The secret to happiness is not in doing what you like, but in liking "
+        "what you do."
+    )
 
     print("Back-translation (EN → FR → EN):")
     print(f"1. Original (EN): {original}")

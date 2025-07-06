@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
+"""Speech recognition example demonstrating automatic speech recognition (ASR) with
+HuggingFace.
 """
-"""Speech recognition example demonstrating automatic speech recognition (ASR)
-with HuggingFace.
-"""
-"""
-
 
 import numpy as np
 from transformers import pipeline
@@ -102,7 +99,10 @@ def speech_recognition_with_options():
             print(f"  Chunk {chunk_length}s: Processing synthetic audio...")
 
 
-def multilingual_speech_recognition():    """Demonstrate multilingual speech recognition."""    print("\n=== Multilingual Speech Recognition ===")    _device = get_device()
+def multilingual_speech_recognition():
+    """Demonstrate multilingual speech recognition."""
+    print("\n=== Multilingual Speech Recognition ===")
+    _device = get_device()
 
     print("Loading multilingual ASR model...")
     print("Model: facebook/wav2vec2-xlsr-53-espeak-cv-ft")
