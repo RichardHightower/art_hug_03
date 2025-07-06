@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -25,10 +26,16 @@ MAX_LENGTH = int(os.getenv("MAX_LENGTH", "512"))
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 # Try multiple possible token names
-HF_TOKEN = os.getenv("HUGGINGFACE_TOKEN") or os.getenv("HUGGING_FACE_HUB_TOKEN") or os.getenv("HF_TOKEN")
+HF_TOKEN = (
+    os.getenv("HUGGINGFACE_TOKEN")
+    or os.getenv("HUGGING_FACE_HUB_TOKEN")
+    or os.getenv("HF_TOKEN")
+)
+
+import torch
 
 # Device configuration
-import torch
+
 
 def get_device():
     """Get the best available device for pipelines (returns int or str)."""
@@ -38,5 +45,6 @@ def get_device():
         return 0  # Return 0 for first CUDA device
     else:
         return -1  # Return -1 for CPU in pipeline API
-        
+
+
 DEVICE = get_device()

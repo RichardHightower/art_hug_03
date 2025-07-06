@@ -56,7 +56,7 @@ tasks:
   notebook-tokenization:
     desc: "Open Chapter 3 Tokenization notebook"
     cmds:
-      - poetry run jupyter notebook notebooks/Chapter_03_Tokenization_Fixed.ipynb
+      - poetry run jupyter notebook notebooks/Chapter_03_Tokenization.ipynb
 
   test:
     desc: "Run all tests"
