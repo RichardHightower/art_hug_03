@@ -1,0 +1,179 @@
+version: '3'
+
+vars:
+  PYTHON_VERSION: 3.12.9
+
+tasks:
+  default:
+    desc: "Show available tasks"
+    cmds:
+      - task --list
+
+  setup:
+    desc: "Set up the Python environment and install dependencies"
+    cmds:
+      - pyenv install -s {{.PYTHON_VERSION}}
+      - pyenv local {{.PYTHON_VERSION}}
+      - poetry install
+      - poetry config virtualenvs.in-project true
+      - 'echo "Setup complete! Activate with: source .venv/bin/activate"'
+
+  run:
+    desc: "Run all examples (interactive)"
+    cmds:
+      - poetry run python src/main.py
+
+  run-all:
+    desc: "Run all examples (non-interactive)"
+    cmds:
+      - poetry run python src/run_all_examples.py
+
+  run-basic-tokenization:
+    desc: "Run basic tokenization examples"
+    cmds:
+      - poetry run python src/basic_tokenization.py
+
+  run-subword-tokenization:
+    desc: "Run subword tokenization examples"
+    cmds:
+      - poetry run python src/subword_tokenization.py
+
+  run-advanced-tokenization:
+    desc: "Run advanced tokenization examples"
+    cmds:
+      - poetry run python src/advanced_tokenization.py
+
+  notebook:
+    desc: "Launch Jupyter notebook server"
+    cmds:
+      - poetry run jupyter notebook notebooks/
+  
+  notebook-env:
+    desc: "Open Chapter 3 Environment Setup notebook"
+    cmds:
+      - poetry run jupyter notebook notebooks/Chapter_03_Environment_Setup.ipynb
+  
+  notebook-tokenization:
+    desc: "Open Chapter 3 Tokenization notebook"
+    cmds:
+      - poetry run jupyter notebook notebooks/Chapter_03_Tokenization_Fixed.ipynb
+
+  test:
+    desc: "Run all tests"
+    cmds:
+      - poetry run pytest tests/ -v
+
+  format:
+    desc: "Format code with Black and Ruff"
+    cmds:
+      - poetry run black src/ tests/
+      - poetry run ruff check --fix src/ tests/
+
+  clean:
+    desc: "Clean up generated files"
+    cmds:
+      - find . -type d -name "__pycache__" -exec rm -rf {} +
+      - find . -type f -name "*.pyc" -delete
+      - rm -rf .pytest_cache
+      - rm -rf .ruff_cache
+      - rm -rf .mypy_cache
+
+  # Conda Setup Tasks
+  conda-create:
+    desc: "Create conda environment for Hugging Face"
+    cmds:
+      - conda create -n hf-env python=3.10 -y
+
+  conda-setup:
+    desc: "Alternative setup using conda"
+    cmds:
+      - conda create -n hf-env python=3.10 -y
+      - 'echo "Environment created! Activate with: conda activate hf-env"'
+
+  # Export/Import Dependencies
+  export-requirements:
+    desc: "Export requirements.txt from Poetry"
+    cmds:
+      - poetry export -f requirements.txt --output requirements.txt --without-hashes
+      - 'echo "Requirements exported to requirements.txt"'
+
+  # HuggingFace Setup
+  hf-login:
+    desc: "Login to HuggingFace Hub"
+    cmds:
+      - poetry run huggingface-cli login
+
+  hf-install-hub:
+    desc: "Install HuggingFace Hub"
+    cmds:
+      - poetry add huggingface_hub
+
+  # Verification Tasks
+  verify-setup:
+    desc: "Verify HuggingFace environment setup"
+    cmds:
+      - poetry run python src/verify_installation.py
+
+  verify-imports:
+    desc: "Quick verification of imports"
+    cmds:
+      - |
+        poetry run python -c "
+        import transformers
+        import datasets
+        import accelerate
+        print('Transformers:', transformers.__version__)
+        print('Datasets:', datasets.__version__)
+        print('Accelerate:', accelerate.__version__)
+        "
+
+  # GPU Support
+  install-cuda:
+    desc: "Install PyTorch with CUDA support"
+    cmds:
+      - pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+  install-mps:
+    desc: "Install PyTorch for Apple Silicon (MPS)"
+    cmds:
+      - poetry add torch torchvision torchaudio
+
+  # Example Tasks
+  run-pipeline:
+    desc: "Run pipeline example"
+    cmds:
+      - poetry run python src/pipeline_example.py
+
+  run-hub-api:
+    desc: "Run HuggingFace Hub API example"
+    cmds:
+      - poetry run python src/hf_hub_example.py
+
+  run-model-download:
+    desc: "Run model download example"
+    cmds:
+      - poetry run python src/model_download_example.py
+
+  run-translation:
+    desc: "Run translation example"
+    cmds:
+      - poetry run python src/translation_example.py
+
+  run-speech:
+    desc: "Run speech recognition example"
+    cmds:
+      - poetry run python src/speech_recognition_example.py
+
+  test-oov:
+    desc: "Test out-of-vocabulary word handling"
+    cmds:
+      - poetry run python src/test_oov_handling.py
+
+  # Complete Setup
+  setup-complete:
+    desc: "Complete setup with all dependencies"
+    cmds:
+      - task: setup
+      - task: hf-install-hub
+      - task: export-requirements
+      - task: verify-setup
